@@ -8,7 +8,21 @@ Configure DNS filtering to block access to malicious domains (malware, phishing,
 
 ---
 
-## Step 1: Access Zero Trust Dashboard
+## Step 1: Test Before Configuration (Baseline)
+
+Before setting up DNS security, let's test accessing a gambling site to see that it's currently accessible.
+
+1. Open your web browser
+2. Try to visit: **https://www.ufabet.pics/**
+3. **Expected Result:**
+   - Site loads normally (not blocked)
+   - This shows you currently have no DNS filtering
+
+**Note:** We'll test this same site again after configuration to verify blocking works.
+
+---
+
+## Step 2: Access Zero Trust Dashboard
 
 1. Go to: **https://dash.cloudflare.com**
 2. In the **left sidebar**, click **Zero Trust**
@@ -21,7 +35,7 @@ Configure DNS filtering to block access to malicious domains (malware, phishing,
 
 ---
 
-## Step 2: Navigate to DNS Policies
+## Step 3: Navigate to DNS Policies
 
 1. In the Zero Trust Dashboard left sidebar:
 2. Click **Traffic policies**
@@ -30,7 +44,7 @@ Configure DNS filtering to block access to malicious domains (malware, phishing,
 
 ---
 
-## Step 3: Create Security Threat Blocking Policy
+## Step 4: Create Security Threat Blocking Policy
 
 1. Click **Add a policy** button
 2. Fill in the policy details:
@@ -56,7 +70,29 @@ Configure DNS filtering to block access to malicious domains (malware, phishing,
 
 ---
 
-## Step 4: Create Allow List for Important Domains (Optional)
+## Step 5: Create Content Filtering Policy for Gambling
+
+1. Click **Add a policy** button
+2. Fill in the policy details:
+
+**Policy name:** `Block Gambling Sites`
+
+**Traffic section:**
+3. Click **Add condition**
+4. **Selector:** Select `Content Categories`
+5. **Operator:** Select `in`
+6. **Value:** Check:
+   - ✅ Gambling
+
+**Action section:**
+7. **Action:** Select `Block`
+8. ✅ Enable **Display block page**
+
+9. Click **Save policy**
+
+---
+
+## Step 6: Create Allow List for Important Domains (Optional)
 
 If you need to allow specific domains:
 
@@ -82,7 +118,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 5: Get Your DNS Location
+## Step 7: Get Your DNS Location
 
 1. In the left sidebar, click **Networks**
 2. Click **Resolvers & Proxies**
@@ -95,7 +131,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 6: Configure Browser to Use DoH
+## Step 8: Configure Browser to Use DoH
 
 ### For Chrome/Edge:
 
@@ -133,9 +169,19 @@ If you need to allow specific domains:
 
 ---
 
-## Step 7: Test DNS Security Blocking
+## Step 9: Test DNS Security Blocking
 
-### Test 1: Malware Domain Test
+### Test 1: Gambling Site Test
+
+1. Open a new browser tab
+2. Try to visit: **https://www.ufabet.pics/**
+3. **Expected Result:**
+   - **Cloudflare Gateway block page** appears
+   - Message explains the site is blocked
+   - Shows "Gambling" content category
+   - Site that was accessible before is now blocked!
+
+### Test 2: Malware Domain Test
 
 1. Open a new browser tab
 2. Try to visit: `http://malware.testing.google.test/testing/malware/`
@@ -144,7 +190,7 @@ If you need to allow specific domains:
    - Message explains why it was blocked
    - Shows "Malware" security category
 
-### Test 2: Phishing Domain Test
+### Test 3: Phishing Domain Test
 
 1. Try to visit: `http://testsafebrowsing.appspot.com/s/phishing.html`
 2. **Expected Result:**
@@ -152,7 +198,7 @@ If you need to allow specific domains:
    - Block page shows "Phishing" category
    - DNS query was blocked before reaching the site
 
-### Test 3: Command & Control Test
+### Test 4: Command & Control Test
 
 1. Try to visit a known C2 domain (if you have one for testing)
 2. **Expected Result:**
@@ -166,7 +212,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 8: View DNS Logs
+## Step 10: View DNS Logs
 
 1. Go back to Zero Trust Dashboard: **https://one.dash.cloudflare.com**
 2. In the left sidebar, click **Insights**
@@ -182,7 +228,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 9: Filter and Search Logs
+## Step 11: Filter and Search Logs
 
 1. Use the **Filter** options:
    - Filter by **Action** (Allowed/Blocked)
@@ -200,10 +246,13 @@ If you need to allow specific domains:
 ## ✅ Checkpoint
 
 You should now have:
+- ✅ Tested site access before configuration (baseline)
 - ✅ Zero Trust account configured
 - ✅ DNS security policy created
+- ✅ Gambling content filtering enabled
 - ✅ Malware, phishing, and C2 blocking enabled
 - ✅ DoH configured in browser
+- ✅ Verified gambling site is now blocked
 - ✅ Tested malicious domain blocking
 - ✅ Viewed DNS logs showing blocked queries
 
@@ -212,6 +261,7 @@ You should now have:
 ## What You've Accomplished
 
 **DNS-Level Protection:**
+- ✅ Gambling sites blocked by content category
 - ✅ Malicious domains blocked at DNS resolution
 - ✅ Phishing sites blocked before connection
 - ✅ Command & Control servers blocked
