@@ -23,8 +23,9 @@
 | 1 | [Why Cloudflare?](./docs/01-introduction.md) | Benefits & Use Cases | 30 min |
 | 2 | [Cloudflare Pages](./docs/02-cloudflare-pages.md) | Modern Web Hosting | 45 min |
 | 3 | [DNS Security](./docs/03-dns-security.md) | Campus Protection | 60 min |
+| 4 | [Rule Expressions](./docs/04-rule-expressions.md) | Advanced Policy Building | 20 min |
 
-**Total:** 3 hours (includes breaks)
+**Total:** 3 hours 20 minutes (includes breaks)
 
 ## Key Benefits for Universities
 
