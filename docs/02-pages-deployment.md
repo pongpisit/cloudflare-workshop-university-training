@@ -82,7 +82,29 @@ Deploy a static website to Cloudflare Pages using direct upload.
 
 ---
 
-## Step 2: Navigate to Workers & Pages
+## Step 2: Compress Your Files
+
+Cloudflare Pages requires files to be uploaded as a ZIP archive.
+
+### On Windows:
+1. Right-click on your **index.html** file
+2. Select **Send to** → **Compressed (zipped) folder**
+3. Rename the ZIP file to: **website.zip**
+
+### On macOS:
+1. Right-click on your **index.html** file
+2. Select **Compress "index.html"**
+3. This creates **index.zip** - rename it to: **website.zip**
+
+### On Linux:
+1. Open Terminal in the folder containing **index.html**
+2. Run: `zip website.zip index.html`
+
+**✓ You should now have a file named `website.zip`**
+
+---
+
+## Step 3: Navigate to Workers & Pages
 
 1. Go to: **https://dash.cloudflare.com**
 2. In the **left sidebar**, click **Build**
@@ -93,7 +115,7 @@ Deploy a static website to Cloudflare Pages using direct upload.
 
 ---
 
-## Step 3: Create a Pages Project
+## Step 4: Create a Pages Project
 
 1. Click the **Create application** button (blue button, top right)
 2. Click the **Pages** tab
@@ -106,7 +128,7 @@ Deploy a static website to Cloudflare Pages using direct upload.
 
 ---
 
-## Step 4: Upload Your Website
+## Step 5: Upload Your Website
 
 1. **Project name:** Enter `my-university-site` (or any name you like)
 
@@ -114,15 +136,17 @@ Deploy a static website to Cloudflare Pages using direct upload.
 
 2. Click **Create project**
 3. You'll see the upload page
-4. Click **Upload files** or drag and drop your **index.html** file
+4. Click **Upload files** or drag and drop your **website.zip** file
 
 ![File Upload Dialog](../assets/screenshot/09-file-upload-dialog.png)
 
 5. Click **Deploy site**
 
+**Note:** Cloudflare Pages will automatically extract the ZIP file and deploy the contents.
+
 ---
 
-## Step 5: Wait for Deployment
+## Step 6: Wait for Deployment
 
 1. You'll see a deployment progress screen
 2. Wait for the status to show: **Success**
@@ -132,7 +156,7 @@ Deploy a static website to Cloudflare Pages using direct upload.
 
 ---
 
-## Step 6: Access Your Website
+## Step 7: Access Your Website
 
 1. Once deployed, you'll see a **Visit site** button
 2. Click **Visit site**
@@ -143,7 +167,7 @@ Deploy a static website to Cloudflare Pages using direct upload.
 
 ---
 
-## Step 7: Test Your Website
+## Step 8: Test Your Website
 
 1. Verify your website loads correctly
 2. Check that the styling appears properly
@@ -153,7 +177,7 @@ Deploy a static website to Cloudflare Pages using direct upload.
 
 ---
 
-## Step 8: View Deployment Details
+## Step 9: View Deployment Details
 
 1. Go back to the Cloudflare Dashboard
 2. You should see your project listed under **Workers & Pages**
@@ -168,16 +192,17 @@ Deploy a static website to Cloudflare Pages using direct upload.
 
 ---
 
-## Step 9: Make an Update (Optional)
+## Step 10: Make an Update (Optional)
 
 1. Edit your **index.html** file
 2. Change the heading text to something else
 3. Save the file
-4. Go back to your project in the Dashboard
-5. Click **Create deployment**
-6. Upload the updated file
-7. Click **Deploy site**
-8. Visit your site again to see the changes
+4. **Compress it again** into a new ZIP file
+5. Go back to your project in the Dashboard
+6. Click **Create deployment**
+7. Upload the updated ZIP file
+8. Click **Deploy site**
+9. Visit your site again to see the changes
 
 ---
 
