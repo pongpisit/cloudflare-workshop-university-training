@@ -67,7 +67,6 @@
 ## Resources
 
 - [Quick Reference](./QUICK-REFERENCE.md) - Commands and navigation
-- [Thai Agenda](./AGENDA-TH.md) - Workshop agenda in Thai (วาระการประชุมภาษาไทย)
 - [Cloudflare Dashboard](https://dash.cloudflare.com)
 - [Zero Trust Dashboard](https://one.dash.cloudflare.com)
 - [Documentation](https://developers.cloudflare.com)
