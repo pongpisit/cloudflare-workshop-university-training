@@ -8,11 +8,26 @@ Configure DNS filtering to block access to malicious domains (malware, phishing,
 
 ---
 
-## Step 1: Test Before Configuration (Baseline)
+## Step 1: Check Domain Categories on Cloudflare Radar
 
-Before setting up DNS security, let's test accessing a gambling site to see that it's currently accessible.
+Before testing, let's verify what categories Cloudflare assigns to the gambling site.
 
 1. Open your web browser
+2. Go to: **https://radar.cloudflare.com/domains/domain/ufabet.pics**
+3. Look for the **Content Categories** section
+4. You should see categories like:
+   - **Gambling** (primary category)
+   - Other related categories
+
+**This confirms Cloudflare's threat intelligence categorizes this domain as gambling content.**
+
+---
+
+## Step 2: Test Before Configuration (Baseline)
+
+Now let's test accessing the gambling site to see that it's currently accessible.
+
+1. Open a new browser tab
 2. Try to visit: **https://www.ufabet.pics/**
 3. **Expected Result:**
    - Site loads normally (not blocked)
@@ -22,7 +37,7 @@ Before setting up DNS security, let's test accessing a gambling site to see that
 
 ---
 
-## Step 2: Access Zero Trust Dashboard
+## Step 3: Access Zero Trust Dashboard
 
 1. Go to: **https://dash.cloudflare.com**
 2. In the **left sidebar**, click **Zero Trust**
@@ -35,7 +50,7 @@ Before setting up DNS security, let's test accessing a gambling site to see that
 
 ---
 
-## Step 3: Navigate to DNS Policies
+## Step 4: Navigate to DNS Policies
 
 1. In the Zero Trust Dashboard left sidebar:
 2. Click **Traffic policies**
@@ -44,7 +59,7 @@ Before setting up DNS security, let's test accessing a gambling site to see that
 
 ---
 
-## Step 4: Create Security Threat Blocking Policy
+## Step 5: Create Security Threat Blocking Policy
 
 1. Click **Add a policy** button
 2. Fill in the policy details:
@@ -70,7 +85,7 @@ Before setting up DNS security, let's test accessing a gambling site to see that
 
 ---
 
-## Step 5: Create Content Filtering Policy for Gambling
+## Step 6: Create Content Filtering Policy for Gambling
 
 1. Click **Add a policy** button
 2. Fill in the policy details:
@@ -92,7 +107,7 @@ Before setting up DNS security, let's test accessing a gambling site to see that
 
 ---
 
-## Step 6: Create Allow List for Important Domains (Optional)
+## Step 7: Create Allow List for Important Domains (Optional)
 
 If you need to allow specific domains:
 
@@ -118,7 +133,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 7: Get Your DNS Location
+## Step 8: Get Your DNS Location
 
 1. In the left sidebar, click **Networks**
 2. Click **Resolvers & Proxies**
@@ -131,7 +146,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 8: Configure Browser to Use DoH
+## Step 9: Configure Browser to Use DoH
 
 ### For Chrome/Edge:
 
@@ -169,7 +184,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 9: Test DNS Security Blocking
+## Step 10: Test DNS Security Blocking
 
 ### Test 1: Gambling Site Test
 
@@ -212,7 +227,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 10: View DNS Logs
+## Step 11: View DNS Logs
 
 1. Go back to Zero Trust Dashboard: **https://one.dash.cloudflare.com**
 2. In the left sidebar, click **Insights**
@@ -228,7 +243,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 11: Filter and Search Logs
+## Step 12: Filter and Search Logs
 
 1. Use the **Filter** options:
    - Filter by **Action** (Allowed/Blocked)
@@ -246,6 +261,7 @@ If you need to allow specific domains:
 ## ✅ Checkpoint
 
 You should now have:
+- ✅ Checked domain categories on Cloudflare Radar
 - ✅ Tested site access before configuration (baseline)
 - ✅ Zero Trust account configured
 - ✅ DNS security policy created
