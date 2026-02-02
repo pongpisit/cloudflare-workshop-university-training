@@ -1,10 +1,10 @@
-# Module 2: DNS Security - Block Malware Downloads
+# Module 3: DNS Security
 
 **Duration:** 45 minutes
 
 ## Objective
 
-Configure DNS filtering to block malware, phishing, and prevent malicious file downloads using Cloudflare Gateway.
+Configure DNS filtering to block access to malicious domains (malware, phishing, command & control) using Cloudflare Gateway.
 
 ---
 
@@ -133,37 +133,36 @@ If you need to allow specific domains:
 
 ---
 
-## Step 7: Test Malware Download Blocking
+## Step 7: Test DNS Security Blocking
 
-### Test 1: EICAR Test File (Safe Malware Test)
+### Test 1: Malware Domain Test
 
 1. Open a new browser tab
-2. Go to: **https://www.eicar.org**
-3. Try to download the EICAR test file:
-   - Click on "Download" or "EICAR test files"
-   - Try to download `eicar.com` or `eicar.com.txt`
-
-4. **Expected Result:**
-   - The download should be **blocked**
-   - You may see a Cloudflare Gateway block page
-   - Or the download will fail silently
-
-### Test 2: Known Malware Domain
-
-1. Try to visit: `http://malware.testing.google.test/testing/malware/`
-2. **Expected Result:**
+2. Try to visit: `http://malware.testing.google.test/testing/malware/`
+3. **Expected Result:**
    - **Cloudflare Gateway block page** appears
    - Message explains why it was blocked
-   - Shows which security category matched
+   - Shows "Malware" security category
 
-### Test 3: Phishing Site Test
+### Test 2: Phishing Domain Test
 
 1. Try to visit: `http://testsafebrowsing.appspot.com/s/phishing.html`
 2. **Expected Result:**
    - Site is blocked by Cloudflare Gateway
    - Block page shows "Phishing" category
+   - DNS query was blocked before reaching the site
 
-**✅ If all tests are blocked, your DNS security is working correctly!**
+### Test 3: Command & Control Test
+
+1. Try to visit a known C2 domain (if you have one for testing)
+2. **Expected Result:**
+   - DNS query blocked
+   - Cloudflare Gateway block page
+   - Shows "Command and Control" category
+
+**✅ If domains are blocked, your DNS security is working correctly!**
+
+**Note:** DNS security blocks access to malicious **domains**, not file downloads. The blocking happens at the DNS resolution level before any connection is made.
 
 ---
 
@@ -205,38 +204,41 @@ You should now have:
 - ✅ DNS security policy created
 - ✅ Malware, phishing, and C2 blocking enabled
 - ✅ DoH configured in browser
-- ✅ Tested malware download blocking (EICAR test)
-- ✅ Tested phishing site blocking
-- ✅ Viewed DNS logs showing blocked threats
+- ✅ Tested malicious domain blocking
+- ✅ Viewed DNS logs showing blocked queries
 
 ---
 
 ## What You've Accomplished
 
-**Malware Download Protection:**
-- ✅ Malware downloads blocked at DNS level
-- ✅ Phishing sites blocked before access
+**DNS-Level Protection:**
+- ✅ Malicious domains blocked at DNS resolution
+- ✅ Phishing sites blocked before connection
 - ✅ Command & Control servers blocked
-- ✅ Spyware and cryptomining blocked
+- ✅ Spyware and cryptomining domains blocked
 - ✅ Works on all devices using your DNS
 
-**How It Works:**
-1. User tries to download malware or visit malicious site
-2. DNS query is sent to Cloudflare Gateway
-3. Gateway checks domain against threat intelligence
-4. If malicious, DNS query is blocked
-5. User sees block page or download fails
-6. Threat is logged for review
+**How DNS Security Works:**
+1. User tries to visit a malicious domain
+2. Device sends DNS query to Cloudflare Gateway
+3. Gateway checks domain against threat intelligence database
+4. If malicious, DNS query returns block page IP
+5. User sees Cloudflare Gateway block page
+6. No connection is made to the malicious site
+7. Query is logged for review
 
 **Key Benefits:**
+- Blocks at DNS level (before connection)
 - No software installation required
-- Works through DNS (invisible to users)
+- Works transparently through DNS
 - Protects all devices on the network
 - Real-time threat intelligence updates
 - Complete visibility in logs
+
+**Important:** DNS security blocks access to malicious **domains/websites**, not individual file downloads. It operates at the network layer by preventing DNS resolution of known malicious domains.
 
 ---
 
 ## Workshop Complete!
 
-You've successfully configured DNS security to block malware downloads and protect your network from threats using Cloudflare Gateway.
+You've successfully configured DNS security to block access to malicious domains and protect your network using Cloudflare Gateway.

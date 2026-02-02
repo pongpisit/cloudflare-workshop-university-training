@@ -69,4 +69,4 @@ You should now have:
 
 ## Next Steps
 
-Continue to [Module 2: DNS Security - Block Malware Downloads](./02-dns-security.md)
+Continue to [Module 2: Deploy Website with Cloudflare Pages](./02-pages-deployment.md)
