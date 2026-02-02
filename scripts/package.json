@@ -1,0 +1,13 @@
+{
+  "name": "cloudflare-workshop-screenshots",
+  "version": "1.0.0",
+  "description": "Automated screenshot capture for Cloudflare Workshop",
+  "scripts": {
+    "screenshots": "node take-screenshots.js",
+    "install-browsers": "npx playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "dotenv": "^16.3.1"
+  }
+}
