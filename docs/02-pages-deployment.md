@@ -89,22 +89,35 @@ Deploy a static website to Cloudflare Pages using direct upload.
 3. Click **Compute & AI**
 4. Click **Workers & Pages**
 
+![Workers & Pages Dashboard](../assets/screenshot/05-workers-pages-dashboard.png)
+
 ---
 
 ## Step 3: Create a Pages Project
 
 1. Click the **Create application** button (blue button, top right)
 2. Click the **Pages** tab
+
+![Create Application Options](../assets/screenshot/06-create-application-options.png)
+
 3. Click **Upload assets**
+
+![Pages Upload Options](../assets/screenshot/07-pages-upload-options.png)
 
 ---
 
 ## Step 4: Upload Your Website
 
 1. **Project name:** Enter `my-university-site` (or any name you like)
+
+![Project Name and Upload](../assets/screenshot/08-project-name-upload.png)
+
 2. Click **Create project**
 3. You'll see the upload page
 4. Click **Upload files** or drag and drop your **index.html** file
+
+![File Upload Dialog](../assets/screenshot/09-file-upload-dialog.png)
+
 5. Click **Deploy site**
 
 ---
@@ -115,6 +128,8 @@ Deploy a static website to Cloudflare Pages using direct upload.
 2. Wait for the status to show: **Success**
 3. This usually takes 10-30 seconds
 
+![Deployment Success](../assets/screenshot/10-deployment-success.png)
+
 ---
 
 ## Step 6: Access Your Website
@@ -123,6 +138,8 @@ Deploy a static website to Cloudflare Pages using direct upload.
 2. Click **Visit site**
 3. Your website will open in a new tab
 4. The URL will look like: `https://my-university-site.pages.dev`
+
+![Deployed Website](../assets/screenshot/11-deployed-website.png)
 
 ---
 
@@ -141,6 +158,9 @@ Deploy a static website to Cloudflare Pages using direct upload.
 1. Go back to the Cloudflare Dashboard
 2. You should see your project listed under **Workers & Pages**
 3. Click on your project name
+
+![Project Deployments View](../assets/screenshot/12-project-deployments-view.png)
+
 4. Explore the tabs:
    - **Deployments** - View deployment history
    - **Settings** - Configure your project

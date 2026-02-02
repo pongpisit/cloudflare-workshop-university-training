@@ -32,6 +32,9 @@ Create a free Cloudflare account and access the Dashboard.
 
 1. You should now see the Cloudflare Dashboard
 2. URL: **https://dash.cloudflare.com**
+
+![Welcome Dashboard](../assets/screenshot/03-welcome-dashboard.png)
+
 3. If prompted to add a domain, click **Skip** (not needed for this workshop)
 
 ---
