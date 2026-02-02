@@ -1,458 +1,328 @@
-# Module 4: Understanding Rule Expressions
+# Module 4: Advanced Rule Expressions (Optional)
 
-**Duration:** 20 minutes
+**Duration:** 30 minutes
 
-## What You'll Learn
+## Objective
 
-- Understand how Cloudflare Zero Trust rules work
-- Master the three signal types: Traffic, Identity, Device
-- Use logical operators: `and`, `or`, `not`
-- Use comparison operators: `in`, `not in`, `matches regex`, `contains`
-- Work with Lists for scalable policy management
-- Build complex expressions with multiple conditions
+Learn to build advanced DNS policies using Traffic, Identity, and Device signals with complex conditions.
 
 ---
 
-## Why This Matters
+## Understanding Rule Components
 
-Every security feature in Cloudflare Zero Trust uses the same rule-building pattern:
+Every Cloudflare Zero Trust policy has three parts:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                     Cloudflare Zero Trust Rule Engine                        │
-│                                                                              │
-│   ┌─────────────┐    ┌─────────────┐    ┌─────────────┐                     │
-│   │   Traffic   │    │  Identity   │    │   Device    │                     │
-│   │   Signals   │    │   Signals   │    │   Signals   │                     │
-│   └──────┬──────┘    └──────┬──────┘    └──────┬──────┘                     │
-│          │                  │                  │                             │
-│          └──────────────────┼──────────────────┘                             │
-│                             │                                                │
-│                             ▼                                                │
-│                    ┌─────────────────┐                                       │
-│                    │    Operators    │                                       │
-│                    │  and, or, not   │                                       │
-│                    │  in, contains   │                                       │
-│                    └────────┬────────┘                                       │
-│                             │                                                │
-│                             ▼                                                │
-│                    ┌─────────────────┐                                       │
-│                    │     Action      │                                       │
-│                    │ Allow/Block/... │                                       │
-│                    └─────────────────┘                                       │
-│                                                                              │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
-
-**Once you understand this pattern, you can build any policy.**
+1. **Traffic** - What is being accessed (domains, categories, applications)
+2. **Identity** - Who is making the request (users, groups, emails)
+3. **Device** - What device is being used (OS, posture, compliance)
 
 ---
 
-## The Three Signal Types
+## Lab 1: Block Social Media Except for Marketing Team
 
-### 1. Traffic Signals (What is being accessed?)
+### Step 1: Create the Policy
 
-Traffic signals describe the network request itself.
+1. Go to: **https://one.dash.cloudflare.com**
+2. Navigate to: **Traffic policies** → **Firewall policies** → **DNS**
+3. Click **Add a policy**
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                      Traffic Signals                             │
-│                                                                  │
-│   DNS Policies          HTTP Policies         Network Policies   │
-│   ─────────────         ─────────────         ────────────────   │
-│   • Domain              • URL                 • Destination IP   │
-│   • Query Type          • Host                • Destination Port │
-│   • Source IP           • URL Path            • Protocol         │
-│   • Location            • HTTP Method         • SNI              │
-│   • Resolver IP         • Application         │                  │
-│                         • File Types          │                  │
-│                         • Content Type        │                  │
-│                                                                  │
-│   Categories (shared across policy types):                       │
-│   • Security Categories (Malware, Phishing, C2, etc.)           │
-│   • Content Categories (Adult, Gambling, Social Media, etc.)    │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
+### Step 2: Configure Traffic Condition
 
-**Examples:**
-| Signal | Example Value | Use Case |
-|--------|---------------|----------|
-| Domain | `facebook.com` | Block specific sites |
-| Security Categories | `Malware, Phishing` | Block threats |
-| Content Categories | `Social Media` | Productivity filtering |
-| Application | `Dropbox` | Control SaaS apps |
-| Download File Types | `Executable` | Block risky downloads |
+**Policy name:** `Block Social Media - Non-Marketing`
+
+**Traffic section:**
+1. Click **Add condition**
+2. **Selector:** `Content Categories`
+3. **Operator:** `in`
+4. **Value:** Check `Social Media`
+
+### Step 3: Add Identity Condition
+
+1. Click **Add condition** again
+2. **Selector:** `User Group Names`
+3. **Operator:** `not in`
+4. **Value:** Type `Marketing` (create this group if needed)
+
+### Step 4: Set Action
+
+1. **Action:** `Block`
+2. ✅ Enable **Display block page**
+3. Click **Save policy**
+
+**Result:** Social media is blocked for everyone EXCEPT the Marketing team.
 
 ---
 
-### 2. Identity Signals (Who is making the request?)
+## Lab 2: Block File Downloads on Personal Devices
 
-Identity signals describe the user making the request.
+### Step 1: Create HTTP Policy
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                      Identity Signals                            │
-│                                                                  │
-│   ┌─────────────────┐                                           │
-│   │  User Identity  │                                           │
-│   │                 │                                           │
-│   │  • User Email   │◄──── From WARP authentication             │
-│   │  • Email Domain │      or Access login                      │
-│   │  • User Groups  │                                           │
-│   └────────┬────────┘                                           │
-│            │                                                     │
-│            ▼                                                     │
-│   ┌─────────────────┐                                           │
-│   │ Identity Provider│                                          │
-│   │    Attributes    │                                          │
-│   │                  │                                          │
-│   │  • Azure AD Groups│◄──── From IdP integration               │
-│   │  • Okta Groups    │                                         │
-│   │  • SAML Attributes│                                         │
-│   │  • OIDC Claims    │                                         │
-│   └──────────────────┘                                          │
-│                                                                  │
-│   Access-Specific:                                               │
-│   • Access Groups (reusable identity groups)                    │
-│   • Service Tokens (for automated systems)                      │
-│   • Login Methods (OTP, Azure, Google, etc.)                    │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
+1. Navigate to: **Traffic policies** → **Firewall policies** → **HTTP**
+2. Click **Add a policy**
 
-**Examples:**
-| Signal | Example Value | Use Case |
-|--------|---------------|----------|
-| User Email | `john@company.com` | Allow specific user |
-| Emails ending in | `@company.com` | Allow all company users |
-| Access Groups | `Engineering` | Group-based access |
-| Country | `Thailand` | Geo-based restrictions |
+### Step 2: Configure Traffic Condition
+
+**Policy name:** `Block Risky Downloads - Unmanaged Devices`
+
+**Traffic section:**
+1. Click **Add condition**
+2. **Selector:** `Download File Types`
+3. **Operator:** `in`
+4. **Value:** Check:
+   - ✅ Executable
+   - ✅ Script
+   - ✅ Archive
+
+### Step 3: Add Device Condition
+
+1. Click **Add condition**
+2. **Selector:** `Passed Device Posture Checks`
+3. **Operator:** `is`
+4. **Value:** `false`
+
+### Step 4: Set Action
+
+1. **Action:** `Block`
+2. Click **Save policy**
+
+**Result:** Risky file downloads are blocked only on devices that fail posture checks.
 
 ---
 
-### 3. Device Signals (What device is being used?)
+## Lab 3: Using Lists for Scalable Policies
 
-Device signals describe the endpoint making the request.
+### Step 1: Create a Domain List
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                       Device Signals                             │
-│                                                                  │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │                    Device Posture                        │   │
-│   │                                                          │   │
-│   │   Operating System        Security Software              │   │
-│   │   ─────────────────       ─────────────────              │   │
-│   │   • OS Version            • Firewall Enabled             │   │
-│   │   • OS Type               • Disk Encryption              │   │
-│   │   • Architecture          • Antivirus Running            │   │
-│   │                           • EDR Present                  │   │
-│   │                                                          │   │
-│   │   Compliance              Device Info                    │   │
-│   │   ──────────              ───────────                    │   │
-│   │   • Intune Compliance     • Serial Number                │   │
-│   │   • Tanium Health         • Device ID                    │   │
-│   │   • CrowdStrike Score     • Manufacturer                 │   │
-│   │                                                          │   │
-│   └─────────────────────────────────────────────────────────┘   │
-│                                                                  │
-│   WARP Client Info:                                              │
-│   • WARP Client Version                                         │
-│   • Gateway Status (connected/disconnected)                     │
-│   • Enrolled Device (managed vs unmanaged)                      │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
+1. Navigate to: **Reusable components** → **Lists**
+2. Click **Create a list**
+3. **List name:** `personal-email-domains`
+4. **List type:** `Domain`
+5. **Add items:**
+   ```
+   gmail.com
+   yahoo.com
+   hotmail.com
+   outlook.com
+   protonmail.com
+   ```
+6. Click **Save**
 
-**Examples:**
-| Signal | Example Value | Use Case |
-|--------|---------------|----------|
-| Firewall | Enabled | Require firewall on |
-| Disk Encryption | Encrypted | Require encryption |
-| OS Version | >= 14.0 | Require updated OS |
-| Device Platform | macOS, Windows | Limit to specific OS |
+### Step 2: Create Policy Using the List
+
+1. Navigate to: **Traffic policies** → **Firewall policies** → **DNS**
+2. Click **Add a policy**
+3. **Policy name:** `Block Personal Email`
+
+**Traffic section:**
+4. Click **Add condition**
+5. **Selector:** `Domain`
+6. **Operator:** `in list`
+7. **Value:** Select `personal-email-domains`
+
+**Action:**
+8. **Action:** `Block`
+9. Click **Save policy**
+
+**Benefit:** Update the list once, and all policies using it are automatically updated.
 
 ---
 
-## Operators
+## Lab 4: Allow Exceptions with Policy Ordering
+
+### Step 1: Create Allow Policy for IT Team
+
+1. Click **Add a policy**
+2. **Policy name:** `Allow IT Team - All Access`
+
+**Identity section:**
+3. Click **Add condition**
+4. **Selector:** `User Group Names`
+5. **Operator:** `in`
+6. **Value:** `IT Team`
+
+**Action:**
+7. **Action:** `Allow`
+8. Click **Save policy**
+
+### Step 2: Reorder Policies
+
+1. Find your new "Allow IT Team" policy
+2. **Drag it to the top** of the policy list
+3. Ensure it's above all Block policies
+
+**Why:** First matching policy wins. IT Team will match the Allow policy first and bypass all Block policies below.
+
+---
+
+## Lab 5: Complex Multi-Condition Policy
+
+### Scenario: Block Threats for Non-Compliant Devices Only
+
+### Step 1: Create the Policy
+
+1. Click **Add a policy**
+2. **Policy name:** `Block Threats - Non-Compliant Devices Only`
+
+### Step 2: Add Traffic Condition
+
+**Traffic section:**
+1. Click **Add condition**
+2. **Selector:** `Security Categories`
+3. **Operator:** `in`
+4. **Value:** Check:
+   - ✅ Malware
+   - ✅ Phishing
+
+### Step 3: Add Device Conditions
+
+1. Click **Add condition**
+2. **Selector:** `Operating System`
+3. **Operator:** `in`
+4. **Value:** Check:
+   - ✅ Windows
+   - ✅ macOS
+
+5. Click **Add condition**
+6. **Selector:** `Passed Device Posture Checks`
+7. **Operator:** `is`
+8. **Value:** `false`
+
+### Step 4: Set Action
+
+1. **Action:** `Block`
+2. Click **Save policy**
+
+**Result:** Threats are blocked only on Windows/macOS devices that fail posture checks.
+
+---
+
+## Understanding Operators
 
 ### Comparison Operators
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Comparison Operators                          │
-│                                                                  │
-│   Operator          Description              Example             │
-│   ────────          ───────────              ───────             │
-│   is                Exact match              Domain is "x.com"   │
-│   is not            Not exact match          Domain is not "x"   │
-│   in                Value in set             Category in {A,B}   │
-│   not in            Value not in set         App not in {X,Y}    │
-│   contains          String contains          URL contains "api"  │
-│   does not contain  String doesn't contain   URL !contain "test" │
-│   matches regex     Regular expression       Domain ~ ".*\.cn$"  │
-│   greater than      Numeric comparison       Port > 1024         │
-│   less than         Numeric comparison       Risk Score < 50     │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
+| Operator | Use Case | Example |
+|----------|----------|---------|
+| `is` | Exact match | Domain is "facebook.com" |
+| `is not` | Not exact match | Domain is not "cloudflare.com" |
+| `in` | Match any in set | Category in {Malware, Phishing} |
+| `not in` | Exclude from set | User not in {Admins, IT} |
+| `in list` | Match against list | Domain in list "blocklist" |
+| `contains` | String contains | URL contains "download" |
+| `matches regex` | Pattern match | Domain matches ".*\.cn$" |
 
 ### Logical Operators
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     Logical Operators                            │
-│                                                                  │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │  AND (all conditions must be true)                       │   │
-│   │                                                          │   │
-│   │  Condition A ──┐                                         │   │
-│   │                ├──► AND ──► Result (true only if both)   │   │
-│   │  Condition B ──┘                                         │   │
-│   │                                                          │   │
-│   │  Example: Domain is "dropbox.com" AND User not in IT     │   │
-│   └─────────────────────────────────────────────────────────┘   │
-│                                                                  │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │  OR (any condition can be true)                          │   │
-│   │                                                          │   │
-│   │  Condition A ──┐                                         │   │
-│   │                ├──► OR ──► Result (true if either)       │   │
-│   │  Condition B ──┘                                         │   │
-│   │                                                          │   │
-│   │  Example: Category is "Malware" OR Category is "Phishing"│   │
-│   └─────────────────────────────────────────────────────────┘   │
-│                                                                  │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │  NOT (invert condition)                                  │   │
-│   │                                                          │   │
-│   │  Condition ──► NOT ──► Inverted Result                   │   │
-│   │                                                          │   │
-│   │  Example: User NOT in "Contractors" group                │   │
-│   └─────────────────────────────────────────────────────────┘   │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Working with Lists
-
-Lists let you manage values centrally and reuse them across policies.
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Lists Architecture                            │
-│                                                                  │
-│   ┌─────────────────┐                                           │
-│   │  Managed List   │                                           │
-│   │                 │                                           │
-│   │  allowed-saas   │                                           │
-│   │  ─────────────  │                                           │
-│   │  dropbox.com    │                                           │
-│   │  slack.com      │◄──── Update once                          │
-│   │  notion.so      │                                           │
-│   │  figma.com      │                                           │
-│   └────────┬────────┘                                           │
-│            │                                                     │
-│            │ Referenced by                                       │
-│            ▼                                                     │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │                                                          │   │
-│   │  DNS Policy: "Allow SaaS"                                │   │
-│   │  ─────────────────────────                               │   │
-│   │  Domain in list "allowed-saas" → Allow                   │   │
-│   │                                                          │   │
-│   │  HTTP Policy: "Bypass Inspection for SaaS"               │   │
-│   │  ──────────────────────────────────────────              │   │
-│   │  Host in list "allowed-saas" → Do Not Inspect            │   │
-│   │                                                          │   │
-│   │  Access Policy: "Allow SaaS Apps"                        │   │
-│   │  ─────────────────────────────────                       │   │
-│   │  Application domain in list "allowed-saas" → Allow       │   │
-│   │                                                          │   │
-│   └─────────────────────────────────────────────────────────┘   │
-│                                                                  │
-│   Benefits:                                                      │
-│   ✅ Single source of truth                                     │
-│   ✅ Update once, apply everywhere                              │
-│   ✅ Easier auditing                                            │
-│   ✅ Reduces policy errors                                      │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### List Types
-
-| List Type | Contains | Use Case |
-|-----------|----------|----------|
-| **Domain** | Domain names | Allow/block specific sites |
-| **URL** | Full URLs | Block specific pages |
-| **IP** | IP addresses/CIDRs | Network-based rules |
-| **Hostname** | Hostnames | Internal resources |
-| **Serial Number** | Device serials | Device allowlisting |
-
-### Creating a List
-
-**Navigation:** Zero Trust Dashboard → Reusable components → Lists
-
-1. Click **Create a list**
-2. Choose list type (Domain, URL, IP, etc.)
-3. Enter values (one per line or upload CSV)
-4. Save the list
-
----
-
-## Practical Examples
-
-### Example 1: Block Threats Except for Security Team
-
-**Goal:** Block malware/phishing for all users, but allow Security team to access for research.
-
-**DNS Policy:**
-- **Name:** "Block Security Threats"
-- **Traffic:** Security Categories `in` { Malware, Phishing, Command and Control }
-- **Identity:** User Group `not in` { Security Team }
-- **Action:** Block
-
-**In the Dashboard:**
-1. Go to: Traffic policies → Firewall policies → DNS
-2. Click **Add a policy**
-3. Add condition: `Security Categories` → `in` → Select threats
-4. Add condition: `User Group` → `not in` → `Security Team`
-5. Action: `Block`
-
----
-
-### Example 2: Block File Downloads on Unmanaged Devices
-
-**Goal:** Prevent downloading executables on personal/unmanaged devices.
-
-**HTTP Policy:**
-- **Name:** "Block Risky Downloads - Unmanaged"
-- **Traffic:** Download File Types `in` { Executable, Script, Archive }
-- **Device:** Passed Device Posture Checks `is` false
-- **Action:** Block
-
----
-
-### Example 3: Allow Employees on Compliant Devices
-
-**Goal:** Only allow access to internal app for employees with compliant devices.
-
-**Access Policy:**
-- **Name:** "Allow Compliant Employees"
-- **Include:** Emails ending in `@company.com`
-- **Require:** Device Posture: Firewall `is` Enabled
-- **Require:** Device Posture: Disk Encryption `is` Encrypted
-- **Action:** Allow
-
----
-
-### Example 4: Using Lists - Block Personal Email
-
-**Goal:** Block access to personal email providers.
-
-**Step 1: Create a List**
-- Name: `personal-email-domains`
-- Type: Domain
-- Values: `gmail.com`, `yahoo.com`, `hotmail.com`, `outlook.com`
-
-**Step 2: Create DNS Policy**
-- **Traffic:** Domain `in list` "personal-email-domains"
-- **Action:** Block
+- **AND** - All conditions must be true (default between conditions)
+- **OR** - Any condition can be true (within same selector)
+- **NOT** - Invert condition (use "not in" or "is not")
 
 ---
 
 ## Policy Evaluation Order
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                  Policy Evaluation Order                         │
-│                                                                  │
-│   Request comes in                                               │
-│         │                                                        │
-│         ▼                                                        │
-│   ┌─────────────┐                                               │
-│   │  Policy 1   │──► Match? ──► YES ──► Apply Action & STOP     │
-│   │ (Priority 1)│              │                                │
-│   └─────────────┘              NO                               │
-│         │                      │                                │
-│         ▼                      ▼                                │
-│   ┌─────────────┐                                               │
-│   │  Policy 2   │──► Match? ──► YES ──► Apply Action & STOP     │
-│   │ (Priority 2)│              │                                │
-│   └─────────────┘              NO                               │
-│         │                      │                                │
-│         ▼                      ▼                                │
-│   ┌─────────────┐                                               │
-│   │  Policy 3   │──► Match? ──► YES ──► Apply Action & STOP     │
-│   │ (Priority 3)│              │                                │
-│   └─────────────┘              NO                               │
-│         │                      │                                │
-│         ▼                      ▼                                │
-│   ┌─────────────┐                                               │
-│   │  Default    │──► Apply default action (usually Allow)       │
-│   │   Action    │                                               │
-│   └─────────────┘                                               │
-│                                                                  │
-│   ⚠️  First matching policy wins!                               │
-│   ⚠️  Order your policies from most specific to least specific  │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
+Request → Policy 1 (Match?) → YES → Apply Action → STOP
+              ↓ NO
+          Policy 2 (Match?) → YES → Apply Action → STOP
+              ↓ NO
+          Policy 3 (Match?) → YES → Apply Action → STOP
+              ↓ NO
+          Default Action (Usually Allow)
 ```
 
-### Best Practice: Policy Order
+**Best Practice Order:**
+1. Allow exceptions (specific users/apps)
+2. Block high-risk (security threats)
+3. Block by policy (content filtering)
+4. Allow everything else
 
-1. **Allow exceptions first** (bypass rules for specific users/apps)
-2. **Block high-risk** (security threats, malware)
-3. **Block by policy** (content categories, applications)
-4. **Allow everything else** (implicit or explicit)
+---
+
+## Lab 6: Test Your Policies
+
+### Step 1: View Policy Order
+
+1. Go to your DNS policies page
+2. Review the order of all policies
+3. Ensure Allow policies are at the top
+
+### Step 2: Test Blocking
+
+1. Try to access a blocked domain
+2. Verify you see the block page
+3. Check which policy matched
+
+### Step 3: Check Logs
+
+1. Navigate to: **Insights** → **Logs** → **DNS**
+2. Find your test query
+3. Click on it to see:
+   - Which policy matched
+   - Why it was blocked
+   - All conditions that were evaluated
 
 ---
 
 ## Quick Reference
 
-### Signal Availability by Policy Type
+### Signal Types by Policy
 
-| Signal Type | DNS | HTTP | Network | Access |
-|-------------|-----|------|---------|--------|
-| Domain | ✅ | ✅ | ❌ | ✅ |
-| URL/Path | ❌ | ✅ | ❌ | ✅ |
-| Application | ❌ | ✅ | ❌ | ❌ |
-| File Types | ❌ | ✅ | ❌ | ❌ |
-| User Identity | ✅ | ✅ | ✅ | ✅ |
-| User Groups | ✅ | ✅ | ✅ | ✅ |
-| Device Posture | ✅ | ✅ | ✅ | ✅ |
-| Source IP | ✅ | ✅ | ✅ | ✅ |
-| Country | ✅ | ✅ | ✅ | ✅ |
+| Signal | DNS | HTTP | Network |
+|--------|-----|------|---------|
+| Domain | ✅ | ✅ | ❌ |
+| URL/Path | ❌ | ✅ | ❌ |
+| Application | ❌ | ✅ | ❌ |
+| File Types | ❌ | ✅ | ❌ |
+| User Identity | ✅ | ✅ | ✅ |
+| User Groups | ✅ | ✅ | ✅ |
+| Device Posture | ✅ | ✅ | ✅ |
+| Source IP | ✅ | ✅ | ✅ |
 
-### Common Operator Patterns
+### Common Patterns
 
-| Pattern | Expression | Use Case |
-|---------|------------|----------|
-| Match any in set | `Category in {A, B, C}` | Block multiple categories |
-| Exclude from rule | `User not in {Admins}` | Exempt specific users |
-| Match pattern | `Domain matches regex ".*\.cn$"` | Block TLD |
-| Use managed list | `Domain in list "blocklist"` | Scalable blocking |
-| Combine conditions | `A and B and C` | All must match |
-| Alternative conditions | `A or B` | Any can match |
+| Pattern | Expression |
+|---------|------------|
+| Block multiple categories | `Category in {A, B, C}` |
+| Exempt specific users | `User not in {Admins}` |
+| Block TLD | `Domain matches regex ".*\.cn$"` |
+| Use managed list | `Domain in list "blocklist"` |
+| Require all conditions | Add multiple conditions (AND) |
+
+---
+
+## ✅ Checkpoint
+
+You should now understand:
+- ✅ Traffic, Identity, and Device signals
+- ✅ Comparison and logical operators
+- ✅ How to use Lists for scalability
+- ✅ Policy evaluation order
+- ✅ How to build complex multi-condition policies
+- ✅ How to test and verify policies
 
 ---
 
 ## Summary
 
-| Concept | Key Points |
-|---------|------------|
-| **Signals** | Traffic (what), Identity (who), Device (how) |
-| **Operators** | `and`, `or`, `not`, `in`, `not in`, `contains`, `matches regex` |
-| **Lists** | Centralized value management, reusable across policies |
-| **Evaluation** | First match wins, order matters |
-| **Best Practice** | Specific exceptions first, then blocks, then allows |
+**Key Concepts:**
+- **Signals** - Traffic (what), Identity (who), Device (how)
+- **Operators** - `and`, `or`, `not`, `in`, `not in`, `contains`, `matches regex`
+- **Lists** - Centralized management, reusable across policies
+- **Evaluation** - First match wins, order matters
+- **Best Practice** - Specific exceptions first, then blocks, then allows
 
 ---
 
-## Next Steps
+## Workshop Complete!
 
-Apply these concepts in Module 3: [DNS Security](./03-dns-security.md) where you'll build real policies using rule expressions.
+You've learned how to:
+1. ✅ Create a Cloudflare account
+2. ✅ Deploy websites with Cloudflare Pages
+3. ✅ Configure DNS security filtering
+4. ✅ Build advanced policies with rule expressions
+
+**Next Steps:**
+- Explore other Zero Trust features
+- Set up WARP client for device protection
+- Configure Access policies for internal apps
+- Monitor your security logs regularly

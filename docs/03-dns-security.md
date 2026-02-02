@@ -1,302 +1,252 @@
-# Module 3: DNS Security - Protect Your Campus
+# Module 3: DNS Security Setup
 
-**Duration:** 60 minutes
+**Duration:** 45 minutes
 
-## Why DNS Security Matters for Universities
+## Objective
 
-### Campus Security Challenges
+Configure DNS filtering to block security threats and test using DNS over HTTPS (DoH) in your browser.
 
-**Thousands of Devices:**
-- Student laptops
-- Faculty computers
-- Mobile devices
-- IoT devices
-- Guest devices
-
-**Common Threats:**
-- Malware infections
-- Phishing attacks
-- Ransomware
-- Data breaches
-- Inappropriate content
-- Bandwidth abuse
-
-**Traditional Solutions:**
-- Expensive hardware firewalls
-- Complex VPN setups
-- Difficult to manage
-- Doesn't protect off-campus
-- High maintenance costs
-
-### Cloudflare Gateway Solution
-
-**DNS-Level Protection:**
-- Block threats before they reach devices
-- Works on and off campus
-- No software to install
-- Protects all devices
-- Free for basic protection
-
-**Key Benefits:**
-
-✅ **Automatic Threat Blocking**
-- Malware domains blocked
-- Phishing sites prevented
-- Ransomware stopped
-- Updated in real-time
-
-✅ **Content Filtering**
-- Block inappropriate content
-- Comply with regulations
-- Protect minors
-- Reduce liability
-
-✅ **Bandwidth Management**
-- Block streaming sites (optional)
-- Reduce network congestion
-- Prioritize academic traffic
-
-✅ **Complete Visibility**
-- See all DNS queries
-- Identify threats
-- Audit compliance
-- Generate reports
-
-✅ **Off-Campus Protection**
-- Students protected at home
-- Faculty protected while traveling
-- No VPN required
-- Works on any network
-
-### Real University Benefits
-
-**IT Department:**
-- Reduce security incidents by 80%
-- Less time fighting malware
-- Easier compliance reporting
-- Lower infrastructure costs
-
-**Students:**
-- Protected from threats automatically
-- Faster, safer browsing
-- Works on personal devices
-- No complex setup
-
-**Faculty:**
-- Secure research data
-- Safe remote access
-- Protect sensitive information
-- Peace of mind
-
-**Administration:**
-- Meet compliance requirements
-- Reduce liability
-- Lower security costs
-- Better incident response
+---
 
 ## Step 1: Access Zero Trust Dashboard
 
-1. Go to https://one.dash.cloudflare.com
-2. Or: Dashboard → Click **"Zero Trust"** in left sidebar
-3. You should see Zero Trust Dashboard
+1. Go to: **https://dash.cloudflare.com**
+2. In the **left sidebar**, click **Zero Trust**
+3. If this is your first time:
+   - You'll see a welcome screen
+   - Click **Get started** or **Continue**
+   - Choose a **team name** (e.g., `my-university-team`)
+   - Click **Continue**
+4. You'll be redirected to: **https://one.dash.cloudflare.com**
 
-## Step 2: Create DNS Security Policy
+---
 
-### Block Security Threats
+## Step 2: Navigate to DNS Policies
 
-1. Click **"Gateway"** in left sidebar
-2. Click **"Firewall policies"**
-3. Click **"DNS"** tab
-4. Click **"Add a policy"**
-5. Policy name: `Block All Security Threats`
-6. Under "Traffic":
-   - Click **"Add condition"**
-   - Select **"Security Categories"**
-   - Select **"in"**
-   - Select **"All security risks"**
-7. Under "Action": Select **"Block"**
-8. Click **"Create policy"**
+1. In the Zero Trust Dashboard left sidebar:
+2. Click **Traffic policies**
+3. Click **Firewall policies**
+4. Click **DNS** tab
 
-✅ Security threats are now blocked
+---
 
-### Block Content Categories (Optional)
+## Step 3: Create Security Threat Blocking Policy
 
-1. Click **"Add a policy"**
-2. Policy name: `Block Inappropriate Content`
-3. Under "Traffic":
-   - Click **"Add condition"**
-   - Select **"Content Categories"**
-   - Select **"in"**
-   - Select **"Gambling"**
-   - Click **"+ Or"**
-   - Select **"Adult Themes"**
-4. Under "Action": Select **"Block"**
-5. Click **"Create policy"**
+1. Click **Add a policy** button
+2. Fill in the policy details:
 
-✅ Content categories are now blocked
+**Policy name:** `Block Security Threats`
 
-### Create Allow List (Important!)
+**Traffic section:**
+3. Click **Add condition**
+4. **Selector:** Select `Security Categories`
+5. **Operator:** Select `in`
+6. **Value:** Check these categories:
+   - ✅ Malware
+   - ✅ Phishing
+   - ✅ Command and Control & Botnet
+   - ✅ Spyware
+   - ✅ Cryptomining
 
-1. Click **"Add a policy"**
-2. Policy name: `Allow University Domains`
-3. Under "Traffic":
-   - Click **"Add condition"**
-   - Select **"Domain"**
-   - Select **"in"**
-   - Enter: `university.edu` (your domain)
-   - Click **"+ Or"**
-   - Enter: `*.university.edu`
-4. Under "Action": Select **"Allow"**
-5. Click **"Create policy"**
-6. **IMPORTANT:** Drag this policy to position #1 (top)
+**Action section:**
+7. **Action:** Select `Block`
+8. ✅ Enable **Display block page**
 
-✅ University domains are always allowed
+9. Click **Save policy**
 
-**Policy order should be:**
-```
-1. Allow University Domains
-2. Block All Security Threats
-3. Block Inappropriate Content
-```
+---
 
-## Step 3: Get Your DNS Location
+## Step 4: Create Content Filtering Policy (Optional)
 
-1. Click **"Networks"** in left sidebar
-2. Click **"DNS locations"**
-3. Click on your location name
-4. Find **"DNS over HTTPS (DoH)"** section
-5. Copy the URL (looks like):
+1. Click **Add a policy** button
+2. Fill in the policy details:
+
+**Policy name:** `Block Adult Content`
+
+**Traffic section:**
+3. Click **Add condition**
+4. **Selector:** Select `Content Categories`
+5. **Operator:** Select `in`
+6. **Value:** Check categories you want to block:
+   - ✅ Adult Themes
+   - ✅ Gambling
+   - ✅ Illegal Activities
+
+**Action section:**
+7. **Action:** Select `Block`
+8. ✅ Enable **Display block page**
+
+9. Click **Save policy**
+
+---
+
+## Step 5: Create Allow List (Optional)
+
+If you need to allow specific domains:
+
+1. Click **Add a policy** button
+2. **Policy name:** `Allow Important Domains`
+
+**Traffic section:**
+3. Click **Add condition**
+4. **Selector:** Select `Domain`
+5. **Operator:** Select `in`
+6. **Value:** Enter domains (one per line):
    ```
-   https://xxxxx.cloudflare-gateway.com/dns-query
+   google.com
+   microsoft.com
+   cloudflare.com
    ```
-6. Keep this URL - you'll need it next!
 
-## Step 4: Configure Browser DNS
+**Action section:**
+7. **Action:** Select `Allow`
+8. Click **Save policy**
 
-### Chrome / Edge
+**Important:** Drag this policy to the **top** of the list (Allow policies should be first)
+
+---
+
+## Step 6: Get Your DNS Location
+
+1. In the left sidebar, click **Networks**
+2. Click **Resolvers & Proxies**
+3. Click **DNS Locations** tab
+4. You should see a default location listed
+5. Click on the location name
+6. Find and copy the **DoH subdomain**
+   - It looks like: `https://xxxxx.cloudflare-gateway.com/dns-query`
+7. **Keep this URL** - you'll need it in the next step
+
+---
+
+## Step 7: Configure Browser to Use DoH
+
+### For Chrome/Edge:
 
 1. Open Chrome or Edge
-2. Click three dots (⋮) → **Settings**
-3. Click **"Privacy and security"**
-4. Click **"Security"**
-5. Scroll to **"Use secure DNS"**
-6. Select **"With Custom"**
-7. Paste your DoH URL
-8. Click outside the box to save
+2. Go to **Settings**
+3. Search for: `secure dns`
+4. Click **Security** (or **Privacy and security**)
+5. Find **Use secure DNS**
+6. Select **With Custom**
+7. Paste your DoH URL: `https://xxxxx.cloudflare-gateway.com/dns-query`
+8. Click **Save** or close settings
 
-✅ Chrome/Edge now uses Cloudflare Gateway
-
-### Firefox
+### For Firefox:
 
 1. Open Firefox
-2. Click three lines (≡) → **Settings**
-3. Scroll to **"Network Settings"**
-4. Click **"Settings..."**
-5. Check **"Enable DNS over HTTPS"**
-6. Select **"Custom"**
-7. Paste your DoH URL
-8. Click **"OK"**
+2. Go to **Settings**
+3. Search for: `dns`
+4. Scroll to **Network Settings**
+5. Click **Settings** button
+6. ✅ Enable **Enable DNS over HTTPS**
+7. Select **Custom**
+8. Paste your DoH URL: `https://xxxxx.cloudflare-gateway.com/dns-query`
+9. Click **OK**
 
-✅ Firefox now uses Cloudflare Gateway
+### For Safari (macOS):
 
-## Step 5: Test DNS Filtering
+1. Open **System Settings**
+2. Go to **Network**
+3. Select your active connection (Wi-Fi or Ethernet)
+4. Click **Details**
+5. Click **DNS** tab
+6. Click **+** under DNS Servers
+7. Add: `1.1.1.1` and `1.0.0.1`
+8. Note: Safari uses system DNS settings
 
-### Test 1: Block Security Threats
+---
 
-1. Try visiting: `http://malware.testing.google.test/testing/malware/`
-2. You should see: Cloudflare Gateway block page
-3. Message: "This site has been blocked"
+## Step 8: Test Security Blocking
 
-✅ Security filtering works!
+1. Open a new browser tab
+2. Try to visit a test malware domain:
+   - Visit: `http://malware.testing.google.test/testing/malware/`
+   - Or search for "EICAR test file" and try to download it
 
-### Test 2: Block Content (if configured)
+3. You should see:
+   - **Cloudflare Gateway block page**
+   - Message explaining why it was blocked
+   - This confirms your DNS filtering is working!
 
-1. Try visiting a gambling site (e.g., `bet365.com`)
-2. You should see: Cloudflare Gateway block page
+---
 
-✅ Content filtering works!
+## Step 9: Test Content Filtering (If Configured)
 
-### Test 3: Allow List
+If you set up content filtering:
 
-1. Visit your university website
-2. Should load normally (no block page)
+1. Try to visit a gambling or adult website
+2. You should see the Cloudflare block page
+3. This confirms content filtering is working
 
-✅ Allow list works!
+---
 
-**If sites aren't blocked:**
-- Wait 2-3 minutes for policies to activate
-- Clear browser cache (Ctrl+Shift+Delete)
-- Restart browser
-- Check DoH URL is correct
+## Step 10: View DNS Logs
 
-## Step 6: View DNS Logs
+1. Go back to Zero Trust Dashboard: **https://one.dash.cloudflare.com**
+2. In the left sidebar, click **Insights**
+3. Click **Logs**
+4. Click **DNS** tab
+5. You should see your DNS queries listed
 
-1. Go to Zero Trust Dashboard
-2. Click **"Logs"** in left sidebar
-3. Click **"Gateway"**
-4. Click **"DNS"** tab
+**Check the logs:**
+- **Allowed queries** - Green checkmark
+- **Blocked queries** - Red X
+- **Policy matched** - Shows which policy blocked it
+- **Query details** - Domain, timestamp, action
 
-You'll see:
-- All DNS queries
-- Which were blocked/allowed
-- Which policy matched
-- Timestamps
+---
 
-**Filter logs:**
-- Click **"Add filter"**
-- Select **"Action"** → **"Block"**
-- See only blocked queries
+## Step 11: Filter and Search Logs
 
-**Export logs:**
-- Click **"Export"**
-- Select CSV or JSON
-- Choose time range
+1. Use the **Filter** options:
+   - Filter by **Action** (Allowed/Blocked)
+   - Filter by **Policy**
+   - Filter by **Time range**
 
-## Troubleshooting
+2. Click on any query to see details:
+   - Source IP
+   - Query type
+   - Policy applied
+   - Timestamp
 
-**Policies not working:**
-- Wait 2-3 minutes
-- Verify DoH URL (no spaces)
-- Check policy order (Allow first)
-- Restart browser
+---
 
-**Can't access important sites:**
-- Add to Allow list
-- Make sure Allow policy is #1
-- Check domain spelling
-- Use wildcard: `*.domain.com`
+## ✅ Checkpoint
 
-**DoH not working:**
-- Copy URL exactly
-- Restart browser
-- Try different browser
-- Check browser supports DoH
+You should now have:
+- ✅ Zero Trust account configured
+- ✅ DNS policies created (Block threats)
+- ✅ Optional content filtering configured
+- ✅ DoH configured in browser
+- ✅ Tested blocking functionality
+- ✅ Viewed DNS logs
 
-## Summary
+---
 
-You've completed:
-- ✅ Created DNS security policies
-- ✅ Blocked threats and content
-- ✅ Set up Allow list
-- ✅ Configured browser DoH
-- ✅ Tested filtering
-- ✅ Viewed logs
+## What You've Accomplished
 
-Your network is now protected!
+**Security Protection:**
+- Malware domains blocked automatically
+- Phishing sites blocked
+- Command & Control servers blocked
+- Content filtering (if configured)
+
+**Visibility:**
+- All DNS queries logged
+- See what's being blocked
+- Identify threats in real-time
+
+**No Software Required:**
+- Works through DNS
+- No agents to install
+- Protects all devices using your DNS
+
+---
 
 ## Next Steps
 
-**Want to learn more about building advanced policies?**
+**Optional Advanced Module:**
+Continue to [Module 4: Advanced Rule Expressions](./04-rule-expressions.md) to learn how to build complex policies with multiple conditions.
 
-Continue to [Module 4: Rule Expressions](./04-rule-expressions.md) to master:
-- Traffic, Identity, and Device signals
-- Logical operators and complex conditions
-- Working with Lists for scalable policies
-- Policy evaluation order and best practices
-
-Or see the [Quick Reference](../QUICK-REFERENCE.md) for commands and navigation tips.
-
-- Monitor logs regularly
-- Adjust policies as needed
-- Add more domains to Allow list
-- Explore other Zero Trust features
+**Or finish here** - You've completed the core workshop!

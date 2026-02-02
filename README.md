@@ -1,57 +1,31 @@
 # Cloudflare Workshop for Universities
 
-3-hour hands-on workshop: Learn why universities choose Cloudflare for performance, security, and cost savings.
+Hands-on lab workshop: Deploy websites and configure DNS security with Cloudflare.
 
-## What You'll Learn
+## What You'll Build
 
-**Why Cloudflare?**
-- 60-80% cost reduction vs traditional hosting
-- Unlimited DDoS protection (free)
-- Global performance (300+ locations)
-- Zero infrastructure management
-
-**Practical Skills:**
-- Deploy websites in minutes
-- Implement campus-wide security
-- Protect students and faculty
-- Reduce IT workload
+**Lab 1:** Create Cloudflare account and access Dashboard  
+**Lab 2:** Deploy a website to Cloudflare Pages  
+**Lab 3:** Configure DNS security filtering with Zero Trust  
+**Lab 4:** Build advanced security policies (optional)
 
 ## Workshop Modules
 
-| Module | Topic | Focus | Time |
-|--------|-------|-------|------|
-| 1 | [Why Cloudflare?](./docs/01-introduction.md) | Benefits & Use Cases | 30 min |
-| 2 | [Cloudflare Pages](./docs/02-cloudflare-pages.md) | Modern Web Hosting | 45 min |
-| 3 | [DNS Security](./docs/03-dns-security.md) | Campus Protection | 60 min |
-| 4 | [Rule Expressions](./docs/04-rule-expressions.md) | Advanced Policy Building | 20 min |
+| Module | Lab | Duration |
+|--------|-----|----------|
+| 1 | [Account Setup](./docs/01-account-setup.md) | 10 min |
+| 2 | [Deploy Website](./docs/02-pages-deployment.md) | 30 min |
+| 3 | [DNS Security](./docs/03-dns-security.md) | 45 min |
+| 4 | [Advanced Rules](./docs/04-rule-expressions.md) | 30 min (optional) |
 
-**Total:** 3 hours 20 minutes (includes breaks)
+**Total:** 1 hour 25 minutes (core labs) or 2 hours (with optional module)
 
-## Key Benefits for Universities
+## What You'll Learn
 
-### 💰 Cost Savings
-- **Free tier** covers most university needs
-- No bandwidth charges
-- No infrastructure costs
-- Reduce IT staff time
-
-### 🔒 Security
-- DDoS protection (unlimited, free)
-- DNS filtering (block malware/phishing)
-- Zero Trust access control
-- Compliance ready
-
-### ⚡ Performance
-- Global CDN (300+ locations)
-- 50% faster page loads
-- Handle traffic spikes
-- Automatic scaling
-
-### 👨‍💻 Developer Friendly
-- Deploy in minutes
-- No server management
-- Git integration
-- Instant rollbacks
+**Module 1:** Create free Cloudflare account  
+**Module 2:** Deploy static website with automatic HTTPS and global CDN  
+**Module 3:** Block malware, phishing, and unwanted content with DNS filtering  
+**Module 4:** Build complex security policies with multiple conditions (optional)
 
 ## Requirements
 
@@ -61,9 +35,9 @@
 
 ## Quick Start
 
-1. Create account at https://dash.cloudflare.com
-2. Follow [Module 1](./docs/01-introduction.md)
-3. Complete modules in order
+1. Start with [Module 1: Account Setup](./docs/01-account-setup.md)
+2. Follow each lab in order
+3. Complete all steps before moving to the next module
 
 ## Resources
 
