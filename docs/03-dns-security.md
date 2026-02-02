@@ -286,6 +286,16 @@ Your network is now protected!
 
 ## Next Steps
 
+**Want to learn more about building advanced policies?**
+
+Continue to [Module 4: Rule Expressions](./04-rule-expressions.md) to master:
+- Traffic, Identity, and Device signals
+- Logical operators and complex conditions
+- Working with Lists for scalable policies
+- Policy evaluation order and best practices
+
+Or see the [Quick Reference](../QUICK-REFERENCE.md) for commands and navigation tips.
+
 - Monitor logs regularly
 - Adjust policies as needed
 - Add more domains to Allow list
