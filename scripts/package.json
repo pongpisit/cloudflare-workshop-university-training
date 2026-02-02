@@ -4,6 +4,7 @@
   "description": "Automated screenshot capture for Cloudflare Workshop",
   "scripts": {
     "screenshots": "node take-screenshots.js",
+    "screenshots:manual": "node take-screenshots-manual.js",
     "install-browsers": "npx playwright install chromium"
   },
   "dependencies": {
