@@ -36,19 +36,15 @@ Create a free Cloudflare account and access the Dashboard.
 
 ---
 
-## Step 4: Explore the Dashboard
+## Step 4: Access Zero Trust
 
-### Left Sidebar Navigation
-
-Locate these sections in the left sidebar:
-
-**Build Section:**
-- **Compute & AI** → **Workers & Pages** (we'll use this in Module 2)
-- **Storage & databases** → **R2 object storage**
-- **Storage & databases** → **D1 SQL database**
-
-**Zero Trust Section:**
-- Click **Zero Trust** in the left sidebar (we'll use this in Module 3)
+1. In the **left sidebar**, click **Zero Trust**
+2. If this is your first time:
+   - Click **Get started**
+   - Choose a **team name** (e.g., `my-university-team`)
+   - Click **Continue**
+3. You'll be redirected to: **https://one.dash.cloudflare.com**
+4. This is your Zero Trust Dashboard
 
 ---
 
@@ -66,10 +62,11 @@ You should now have:
 - ✅ Cloudflare account created
 - ✅ Email verified
 - ✅ Dashboard accessible
+- ✅ Zero Trust Dashboard accessible
 - ✅ Free plan active
 
 ---
 
 ## Next Steps
 
-Continue to [Module 2: Deploy Website with Cloudflare Pages](./02-pages-deployment.md)
+Continue to [Module 2: DNS Security - Block Malware Downloads](./02-dns-security.md)

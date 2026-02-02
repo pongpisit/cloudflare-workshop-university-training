@@ -1,31 +1,30 @@
-# Cloudflare Workshop for Universities
+# Cloudflare DNS Security Workshop
 
-Hands-on lab workshop: Deploy websites and configure DNS security with Cloudflare.
+Hands-on lab workshop: Block malware downloads and protect your network using Cloudflare Gateway DNS filtering.
 
-## What You'll Build
+## What You'll Learn
 
-**Lab 1:** Create Cloudflare account and access Dashboard  
-**Lab 2:** Deploy a website to Cloudflare Pages  
-**Lab 3:** Configure DNS security filtering with Zero Trust  
-**Lab 4:** Build advanced security policies (optional)
+**Lab 1:** Create Cloudflare account and access Zero Trust Dashboard  
+**Lab 2:** Configure DNS security to block malware downloads, phishing, and threats
 
 ## Workshop Modules
 
 | Module | Lab | Duration |
 |--------|-----|----------|
 | 1 | [Account Setup](./docs/01-account-setup.md) | 10 min |
-| 2 | [Deploy Website](./docs/02-pages-deployment.md) | 30 min |
-| 3 | [DNS Security](./docs/03-dns-security.md) | 45 min |
-| 4 | [Advanced Rules](./docs/04-rule-expressions.md) | 30 min (optional) |
+| 2 | [DNS Security - Block Malware](./docs/02-dns-security.md) | 45 min |
 
-**Total:** 1 hour 25 minutes (core labs) or 2 hours (with optional module)
+**Total:** 55 minutes
 
-## What You'll Learn
+## Objectives
 
-**Module 1:** Create free Cloudflare account  
-**Module 2:** Deploy static website with automatic HTTPS and global CDN  
-**Module 3:** Block malware, phishing, and unwanted content with DNS filtering  
-**Module 4:** Build complex security policies with multiple conditions (optional)
+By the end of this workshop, you will:
+- ✅ Block malware downloads at the DNS level
+- ✅ Prevent access to phishing and malicious sites
+- ✅ Configure DNS over HTTPS (DoH) in your browser
+- ✅ Test malware blocking with EICAR test file
+- ✅ View and analyze DNS security logs
+- ✅ Protect all devices on your network without installing software
 
 ## Requirements
 
@@ -36,8 +35,9 @@ Hands-on lab workshop: Deploy websites and configure DNS security with Cloudflar
 ## Quick Start
 
 1. Start with [Module 1: Account Setup](./docs/01-account-setup.md)
-2. Follow each lab in order
-3. Complete all steps before moving to the next module
+2. Continue to [Module 2: DNS Security](./docs/02-dns-security.md)
+3. Test malware blocking with provided test cases
+4. Review logs to see blocked threats
 
 ## Resources
 

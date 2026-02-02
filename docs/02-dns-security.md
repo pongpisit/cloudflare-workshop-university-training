@@ -1,10 +1,10 @@
-# Module 3: DNS Security Setup
+# Module 2: DNS Security - Block Malware Downloads
 
 **Duration:** 45 minutes
 
 ## Objective
 
-Configure DNS filtering to block security threats and test using DNS over HTTPS (DoH) in your browser.
+Configure DNS filtering to block malware, phishing, and prevent malicious file downloads using Cloudflare Gateway.
 
 ---
 
@@ -56,31 +56,7 @@ Configure DNS filtering to block security threats and test using DNS over HTTPS 
 
 ---
 
-## Step 4: Create Content Filtering Policy (Optional)
-
-1. Click **Add a policy** button
-2. Fill in the policy details:
-
-**Policy name:** `Block Adult Content`
-
-**Traffic section:**
-3. Click **Add condition**
-4. **Selector:** Select `Content Categories`
-5. **Operator:** Select `in`
-6. **Value:** Check categories you want to block:
-   - ✅ Adult Themes
-   - ✅ Gambling
-   - ✅ Illegal Activities
-
-**Action section:**
-7. **Action:** Select `Block`
-8. ✅ Enable **Display block page**
-
-9. Click **Save policy**
-
----
-
-## Step 5: Create Allow List (Optional)
+## Step 4: Create Allow List for Important Domains (Optional)
 
 If you need to allow specific domains:
 
@@ -106,7 +82,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 6: Get Your DNS Location
+## Step 5: Get Your DNS Location
 
 1. In the left sidebar, click **Networks**
 2. Click **Resolvers & Proxies**
@@ -119,7 +95,7 @@ If you need to allow specific domains:
 
 ---
 
-## Step 7: Configure Browser to Use DoH
+## Step 6: Configure Browser to Use DoH
 
 ### For Chrome/Edge:
 
@@ -157,31 +133,41 @@ If you need to allow specific domains:
 
 ---
 
-## Step 8: Test Security Blocking
+## Step 7: Test Malware Download Blocking
+
+### Test 1: EICAR Test File (Safe Malware Test)
 
 1. Open a new browser tab
-2. Try to visit a test malware domain:
-   - Visit: `http://malware.testing.google.test/testing/malware/`
-   - Or search for "EICAR test file" and try to download it
+2. Go to: **https://www.eicar.org**
+3. Try to download the EICAR test file:
+   - Click on "Download" or "EICAR test files"
+   - Try to download `eicar.com` or `eicar.com.txt`
 
-3. You should see:
-   - **Cloudflare Gateway block page**
-   - Message explaining why it was blocked
-   - This confirms your DNS filtering is working!
+4. **Expected Result:**
+   - The download should be **blocked**
+   - You may see a Cloudflare Gateway block page
+   - Or the download will fail silently
+
+### Test 2: Known Malware Domain
+
+1. Try to visit: `http://malware.testing.google.test/testing/malware/`
+2. **Expected Result:**
+   - **Cloudflare Gateway block page** appears
+   - Message explains why it was blocked
+   - Shows which security category matched
+
+### Test 3: Phishing Site Test
+
+1. Try to visit: `http://testsafebrowsing.appspot.com/s/phishing.html`
+2. **Expected Result:**
+   - Site is blocked by Cloudflare Gateway
+   - Block page shows "Phishing" category
+
+**✅ If all tests are blocked, your DNS security is working correctly!**
 
 ---
 
-## Step 9: Test Content Filtering (If Configured)
-
-If you set up content filtering:
-
-1. Try to visit a gambling or adult website
-2. You should see the Cloudflare block page
-3. This confirms content filtering is working
-
----
-
-## Step 10: View DNS Logs
+## Step 8: View DNS Logs
 
 1. Go back to Zero Trust Dashboard: **https://one.dash.cloudflare.com**
 2. In the left sidebar, click **Insights**
@@ -197,7 +183,7 @@ If you set up content filtering:
 
 ---
 
-## Step 11: Filter and Search Logs
+## Step 9: Filter and Search Logs
 
 1. Use the **Filter** options:
    - Filter by **Action** (Allowed/Blocked)
@@ -216,37 +202,41 @@ If you set up content filtering:
 
 You should now have:
 - ✅ Zero Trust account configured
-- ✅ DNS policies created (Block threats)
-- ✅ Optional content filtering configured
+- ✅ DNS security policy created
+- ✅ Malware, phishing, and C2 blocking enabled
 - ✅ DoH configured in browser
-- ✅ Tested blocking functionality
-- ✅ Viewed DNS logs
+- ✅ Tested malware download blocking (EICAR test)
+- ✅ Tested phishing site blocking
+- ✅ Viewed DNS logs showing blocked threats
 
 ---
 
 ## What You've Accomplished
 
-**Security Protection:**
-- Malware domains blocked automatically
-- Phishing sites blocked
-- Command & Control servers blocked
-- Content filtering (if configured)
+**Malware Download Protection:**
+- ✅ Malware downloads blocked at DNS level
+- ✅ Phishing sites blocked before access
+- ✅ Command & Control servers blocked
+- ✅ Spyware and cryptomining blocked
+- ✅ Works on all devices using your DNS
 
-**Visibility:**
-- All DNS queries logged
-- See what's being blocked
-- Identify threats in real-time
+**How It Works:**
+1. User tries to download malware or visit malicious site
+2. DNS query is sent to Cloudflare Gateway
+3. Gateway checks domain against threat intelligence
+4. If malicious, DNS query is blocked
+5. User sees block page or download fails
+6. Threat is logged for review
 
-**No Software Required:**
-- Works through DNS
-- No agents to install
-- Protects all devices using your DNS
+**Key Benefits:**
+- No software installation required
+- Works through DNS (invisible to users)
+- Protects all devices on the network
+- Real-time threat intelligence updates
+- Complete visibility in logs
 
 ---
 
-## Next Steps
+## Workshop Complete!
 
-**Optional Advanced Module:**
-Continue to [Module 4: Advanced Rule Expressions](./04-rule-expressions.md) to learn how to build complex policies with multiple conditions.
-
-**Or finish here** - You've completed the core workshop!
+You've successfully configured DNS security to block malware downloads and protect your network from threats using Cloudflare Gateway.
