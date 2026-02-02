@@ -5,6 +5,8 @@
   "scripts": {
     "screenshots": "node take-screenshots.js",
     "screenshots:manual": "node take-screenshots-manual.js",
+    "capture": "node capture-screenshots.js",
+    "simple": "node simple-capture.js",
     "install-browsers": "npx playwright install chromium"
   },
   "dependencies": {

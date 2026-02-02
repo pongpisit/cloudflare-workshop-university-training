@@ -1,6 +1,50 @@
-# Module 2: Deploy Website with Cloudflare Pages
+# Module 2: Cloudflare Pages - Modern Web Hosting
 
 **Duration:** 45 minutes
+
+## Why Cloudflare Pages?
+
+### Traditional Hosting Problems
+- Complex server setup
+- Expensive bandwidth costs
+- Slow for international users
+- Manual SSL certificate management
+- Difficult deployments
+- No automatic backups
+
+### Cloudflare Pages Solution
+- ✅ **Zero configuration** - Upload and go
+- ✅ **Free unlimited bandwidth** - No overage charges
+- ✅ **Global CDN** - Fast everywhere automatically
+- ✅ **Automatic HTTPS** - SSL certificates included
+- ✅ **Git integration** - Deploy on push
+- ✅ **Unlimited rollbacks** - Instant version control
+
+### Perfect For Universities
+
+**Course Websites:**
+- Professors deploy course materials instantly
+- Students access from anywhere
+- No IT department approval needed
+- Update content anytime
+
+**Student Projects:**
+- Free hosting for portfolios
+- Professional deployment experience
+- Learn modern workflows
+- Share work with employers
+
+**Department Pages:**
+- Fast, secure, reliable
+- No maintenance required
+- Professional appearance
+- Global accessibility
+
+**Research Publications:**
+- Share findings instantly
+- Handle traffic spikes
+- Permanent URLs
+- Version history
 
 ## Step 1: Create HTML File
 

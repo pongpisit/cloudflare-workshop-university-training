@@ -1,6 +1,98 @@
-# Module 3: DNS Security with Zero Trust
+# Module 3: DNS Security - Protect Your Campus
 
 **Duration:** 60 minutes
+
+## Why DNS Security Matters for Universities
+
+### Campus Security Challenges
+
+**Thousands of Devices:**
+- Student laptops
+- Faculty computers
+- Mobile devices
+- IoT devices
+- Guest devices
+
+**Common Threats:**
+- Malware infections
+- Phishing attacks
+- Ransomware
+- Data breaches
+- Inappropriate content
+- Bandwidth abuse
+
+**Traditional Solutions:**
+- Expensive hardware firewalls
+- Complex VPN setups
+- Difficult to manage
+- Doesn't protect off-campus
+- High maintenance costs
+
+### Cloudflare Gateway Solution
+
+**DNS-Level Protection:**
+- Block threats before they reach devices
+- Works on and off campus
+- No software to install
+- Protects all devices
+- Free for basic protection
+
+**Key Benefits:**
+
+✅ **Automatic Threat Blocking**
+- Malware domains blocked
+- Phishing sites prevented
+- Ransomware stopped
+- Updated in real-time
+
+✅ **Content Filtering**
+- Block inappropriate content
+- Comply with regulations
+- Protect minors
+- Reduce liability
+
+✅ **Bandwidth Management**
+- Block streaming sites (optional)
+- Reduce network congestion
+- Prioritize academic traffic
+
+✅ **Complete Visibility**
+- See all DNS queries
+- Identify threats
+- Audit compliance
+- Generate reports
+
+✅ **Off-Campus Protection**
+- Students protected at home
+- Faculty protected while traveling
+- No VPN required
+- Works on any network
+
+### Real University Benefits
+
+**IT Department:**
+- Reduce security incidents by 80%
+- Less time fighting malware
+- Easier compliance reporting
+- Lower infrastructure costs
+
+**Students:**
+- Protected from threats automatically
+- Faster, safer browsing
+- Works on personal devices
+- No complex setup
+
+**Faculty:**
+- Secure research data
+- Safe remote access
+- Protect sensitive information
+- Peace of mind
+
+**Administration:**
+- Meet compliance requirements
+- Reduce liability
+- Lower security costs
+- Better incident response
 
 ## Step 1: Access Zero Trust Dashboard
 

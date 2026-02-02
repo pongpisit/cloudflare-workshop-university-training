@@ -1,16 +1,56 @@
-# Cloudflare Workshop
+# Cloudflare Workshop for Universities
 
-3-hour hands-on workshop: Deploy websites and secure networks with Cloudflare.
+3-hour hands-on workshop: Learn why universities choose Cloudflare for performance, security, and cost savings.
+
+## What You'll Learn
+
+**Why Cloudflare?**
+- 60-80% cost reduction vs traditional hosting
+- Unlimited DDoS protection (free)
+- Global performance (300+ locations)
+- Zero infrastructure management
+
+**Practical Skills:**
+- Deploy websites in minutes
+- Implement campus-wide security
+- Protect students and faculty
+- Reduce IT workload
 
 ## Workshop Modules
 
-| Module | Topic | Time |
-|--------|-------|------|
-| 1 | [Introduction](./docs/01-introduction.md) | 30 min |
-| 2 | [Deploy Website with Pages](./docs/02-cloudflare-pages.md) | 45 min |
-| 3 | [DNS Security with Zero Trust](./docs/03-dns-security.md) | 60 min |
+| Module | Topic | Focus | Time |
+|--------|-------|-------|------|
+| 1 | [Why Cloudflare?](./docs/01-introduction.md) | Benefits & Use Cases | 30 min |
+| 2 | [Cloudflare Pages](./docs/02-cloudflare-pages.md) | Modern Web Hosting | 45 min |
+| 3 | [DNS Security](./docs/03-dns-security.md) | Campus Protection | 60 min |
 
 **Total:** 3 hours (includes breaks)
+
+## Key Benefits for Universities
+
+### 💰 Cost Savings
+- **Free tier** covers most university needs
+- No bandwidth charges
+- No infrastructure costs
+- Reduce IT staff time
+
+### 🔒 Security
+- DDoS protection (unlimited, free)
+- DNS filtering (block malware/phishing)
+- Zero Trust access control
+- Compliance ready
+
+### ⚡ Performance
+- Global CDN (300+ locations)
+- 50% faster page loads
+- Handle traffic spikes
+- Automatic scaling
+
+### 👨‍💻 Developer Friendly
+- Deploy in minutes
+- No server management
+- Git integration
+- Instant rollbacks
 
 ## Requirements
 
@@ -27,6 +67,7 @@
 ## Resources
 
 - [Quick Reference](./QUICK-REFERENCE.md) - Commands and navigation
+- [Thai Agenda](./AGENDA-TH.md) - Workshop agenda in Thai (วาระการประชุมภาษาไทย)
 - [Cloudflare Dashboard](https://dash.cloudflare.com)
 - [Zero Trust Dashboard](https://one.dash.cloudflare.com)
 - [Documentation](https://developers.cloudflare.com)
