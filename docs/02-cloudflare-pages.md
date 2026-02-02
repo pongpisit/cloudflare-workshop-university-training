@@ -139,7 +139,7 @@
 
 1. Open `index.html` in Notepad/TextEdit
 2. Change line: `<p>Your University Name</p>`
-3. To: `<p>Chulalongkorn University</p>` (or your university)
+3. To: `<p>Your University</p>` (or your university)
 4. Save the file
 5. Go back to Cloudflare Dashboard
 6. Click your project name
