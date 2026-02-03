@@ -88,7 +88,7 @@ Now let's test accessing the gambling site to see that it's currently accessible
 
 2. Fill in the policy details:
 
-   **Policy name:** `Block Security Threats`
+   **Policy name:** `Block Security Threats and Unwanted Websites`
 
 3. **Traffic section:**
 
@@ -98,25 +98,24 @@ Now let's test accessing the gambling site to see that it's currently accessible
    - **Value:** Check these categories:
      - ✅ Malware
      - ✅ Phishing
-     - ✅ Command and Control & Botnet
-     - ✅ Spyware
-     - ✅ Cryptomining
+     - ✅ Scam
+     - or All Security risks
 
-4. **Add CIPA Filter categories:**
-
-   - Click **Add condition** again
+4. **Add Children’s Internet Protection Act (CIPA) Filter categories:**
+The Children's Internet Protection Act (CIPA) was enacted by Congress in 2000 to address concerns about children's access to obscene or harmful content over the Internet. The law aims to prevent students from accessing explicit, obscene, or otherwise harmful material. It also emphasizes the use of technology protection measures, including DNS filtering, to safeguard against Internet threats such as ransomware, phishing sites, and other potentially harmful content.
+(https://www.fcc.gov/consumers/guides/childrens-internet-protection-act)
+   - Click **+ Or**
    - **Selector:** Select `Content Categories`
    - **Operator:** Select `in`
-   - **Value:** Check these CIPA categories:
-     - ✅ Child Abuse
-     - ✅ Illegal Activities
+   - **Value:** Check these categories:
+     - ✅ CIPA Filter
 
-5. **Action section:**
+6. **Action section:**
 
    - **Action:** Select `Block`
-   - ✅ Enable **Display block page**
+   - ✅ Enable **Modify Gateway block behavior**
 
-6. Click **Save policy**
+7. Click **Save policy**
 
 ---
 
