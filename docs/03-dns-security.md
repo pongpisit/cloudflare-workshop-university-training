@@ -85,26 +85,38 @@ Now let's test accessing the gambling site to see that it's currently accessible
 ## Step 5: Create Security Threat Blocking Policy
 
 1. Click **Add a policy** button
+
 2. Fill in the policy details:
 
-**Policy name:** `Block Security Threats`
+   **Policy name:** `Block Security Threats`
 
-**Traffic section:**
-3. Click **Add condition**
-4. **Selector:** Select `Security Categories`
-5. **Operator:** Select `in`
-6. **Value:** Check these categories:
-   - ✅ Malware
-   - ✅ Phishing
-   - ✅ Command and Control & Botnet
-   - ✅ Spyware
-   - ✅ Cryptomining
+3. **Traffic section:**
 
-**Action section:**
-7. **Action:** Select `Block`
-8. ✅ Enable **Display block page**
+   - Click **Add condition**
+   - **Selector:** Select `Security Categories`
+   - **Operator:** Select `in`
+   - **Value:** Check these categories:
+     - ✅ Malware
+     - ✅ Phishing
+     - ✅ Command and Control & Botnet
+     - ✅ Spyware
+     - ✅ Cryptomining
 
-9. Click **Save policy**
+4. **Add CIPA Filter categories:**
+
+   - Click **Add condition** again
+   - **Selector:** Select `Content Categories`
+   - **Operator:** Select `in`
+   - **Value:** Check these CIPA categories:
+     - ✅ Child Abuse
+     - ✅ Illegal Activities
+
+5. **Action section:**
+
+   - **Action:** Select `Block`
+   - ✅ Enable **Display block page**
+
+6. Click **Save policy**
 
 ---
 
