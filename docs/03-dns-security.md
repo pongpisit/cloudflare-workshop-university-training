@@ -29,6 +29,9 @@ Now let's test accessing the gambling site to see that it's currently accessible
 
 1. Open a new browser tab
 2. Try to visit: **https://www.ufabet.pics/**
+
+![UFABET Site Before Blocking](../assets/screenshot/25-ufabet-site-before-blocking.png)
+
 3. **Expected Result:**
    - Site loads normally (not blocked)
    - This shows you currently have no DNS filtering
@@ -45,8 +48,18 @@ Now let's test accessing the gambling site to see that it's currently accessible
    - You'll see a welcome screen
    - Click **Get started** or **Continue**
    - Choose a **team name** (e.g., `my-university-team`)
+
+![Zero Trust Team Name](../assets/screenshot/13-zerotrust-team-name.png)
+
    - Click **Continue**
-4. You'll be redirected to: **https://one.dash.cloudflare.com**
+
+4. Select a plan (Free plan is sufficient for this workshop)
+
+![Zero Trust Plan Selection](../assets/screenshot/14-zerotrust-plan-selection.png)
+
+5. You'll be redirected to: **https://one.dash.cloudflare.com**
+
+![Zero Trust Welcome Page](../assets/screenshot/15-zerotrust-welcome-page.png)
 
 ---
 
@@ -56,6 +69,8 @@ Now let's test accessing the gambling site to see that it's currently accessible
 2. Click **Traffic policies**
 3. Click **Firewall policies**
 4. Click **DNS** tab
+
+![Firewall Policies DNS Tab](../assets/screenshot/21-firewall-policies-dns-tab.png)
 
 ---
 
@@ -99,11 +114,17 @@ Now let's test accessing the gambling site to see that it's currently accessible
 6. **Value:** Check:
    - ✅ Gambling
 
+![Create DNS Policy - Content Categories](../assets/screenshot/22-create-dns-policy-content-categories.png)
+
 **Action section:**
 7. **Action:** Select `Block`
 8. ✅ Enable **Display block page**
 
+![DNS Policy Action Settings](../assets/screenshot/23-dns-policy-action-settings.png)
+
 9. Click **Save policy**
+
+![DNS Policies List](../assets/screenshot/24-dns-policies-list.png)
 
 ---
 
@@ -137,12 +158,30 @@ If you need to allow specific domains:
 
 1. In the left sidebar, click **Networks**
 2. Click **Resolvers & Proxies**
+
+![Resolvers & Proxies Page](../assets/screenshot/16-resolvers-proxies-page.png)
+
 3. Click **DNS Locations** tab
-4. You should see a default location listed
-5. Click on the location name
-6. Find and copy the **DoH subdomain**
+4. Click **Add a location** button
+5. Configure your DNS location:
+
+![Add DNS Location](../assets/screenshot/17-add-dns-location.png)
+
+6. Protect your endpoints (optional settings):
+
+![DNS Location Protect Endpoints](../assets/screenshot/18-dns-location-protect-endpoints.png)
+
+7. Review setup details:
+
+![DNS Location Review Setup](../assets/screenshot/19-dns-location-review-setup.png)
+
+8. After confirmation, you'll see your **DoH subdomain**:
+
+![DNS Location Confirmation with DoH URL](../assets/screenshot/20-dns-location-confirmation-doh-url.png)
+
+9. Copy the **DNS over HTTPS** URL
    - It looks like: `https://xxxxx.cloudflare-gateway.com/dns-query`
-7. **Keep this URL** - you'll need it in the next step
+10. **Keep this URL** - you'll need it in the next step
 
 ---
 
@@ -162,14 +201,22 @@ If you need to allow specific domains:
 ### For Firefox:
 
 1. Open Firefox
-2. Go to **Settings**
+2. Go to **Settings** (Menu → Settings)
+
+![Firefox Menu Settings](../assets/screenshot/26-firefox-menu-settings.png)
+
 3. Search for: `dns`
-4. Scroll to **Network Settings**
-5. Click **Settings** button
-6. ✅ Enable **Enable DNS over HTTPS**
-7. Select **Custom**
-8. Paste your DoH URL: `https://xxxxx.cloudflare-gateway.com/dns-query`
-9. Click **OK**
+4. Scroll to **Network Settings** or find **Enable DNS over HTTPS using:**
+
+![Firefox DNS Settings](../assets/screenshot/27-firefox-dns-settings.png)
+
+5. Select **Increased Protection** or **Custom**
+6. Choose **Custom** from the dropdown
+7. Paste your DoH URL: `https://xxxxx.cloudflare-gateway.com/dns-query`
+
+![Firefox DNS Custom URL](../assets/screenshot/28-firefox-dns-custom-url.png)
+
+8. The settings will save automatically
 
 ### For Safari (macOS):
 
@@ -235,11 +282,14 @@ If you need to allow specific domains:
 4. Click **DNS** tab
 5. You should see your DNS queries listed
 
+![Gateway Activity Logs](../assets/screenshot/29-gateway-activity-logs.png)
+
 **Check the logs:**
-- **Allowed queries** - Green checkmark
-- **Blocked queries** - Red X
+- **Allowed queries** - Green checkmark (ALLOW)
+- **Blocked queries** - Red badge (BLOCK)
 - **Policy matched** - Shows which policy blocked it
 - **Query details** - Domain, timestamp, action
+- **Example:** You can see `www.ufabet.pics` blocked in the logs
 
 ---
 
