@@ -57,7 +57,15 @@ Now let's test accessing the gambling site to see that it's currently accessible
 
 ![Zero Trust Plan Selection](../assets/screenshot/14-zerotrust-plan-selection.png)
 
-5. You'll be redirected to: **https://one.dash.cloudflare.com**
+   - Click **Select plan** for Zero Trust Free
+
+5. **Important:** If Cloudflare asks you to add credit card information:
+   - You can **close the page** or click the **X** button
+   - Go directly to: **https://one.dash.cloudflare.com**
+   - The credit card popup will not appear again
+   - The Free plan works without a credit card
+
+6. You'll be redirected to: **https://one.dash.cloudflare.com**
 
 ![Zero Trust Welcome Page](../assets/screenshot/15-zerotrust-welcome-page.png)
 
