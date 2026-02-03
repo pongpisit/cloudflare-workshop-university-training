@@ -12,9 +12,15 @@ Create a free Cloudflare account and access the Dashboard.
 
 1. Open your web browser
 2. Go to: **https://dash.cloudflare.com/sign-up**
+
+![Cloudflare Login Page](../assets/screenshot/01-login-page.png)
+
 3. Fill in the form:
    - **Email:** Enter your university email address
    - **Password:** Create a strong password (minimum 8 characters)
+
+![Cloudflare Signup Form](../assets/screenshot/02-signup-form.png)
+
 4. Click **Create Account**
 
 ---
@@ -25,6 +31,8 @@ Create a free Cloudflare account and access the Dashboard.
 2. Look for email from Cloudflare (check spam folder if needed)
 3. Click the **Verify Email** link in the email
 4. You'll be redirected to the Cloudflare Dashboard
+
+![Email Verification](../assets/screenshot/04-email-verification.png)
 
 ---
 
