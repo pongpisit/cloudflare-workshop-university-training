@@ -236,17 +236,6 @@ If you need to allow specific domains:
 
 8. The settings will save automatically
 
-### For Safari (macOS):
-
-1. Open **System Settings**
-2. Go to **Network**
-3. Select your active connection (Wi-Fi or Ethernet)
-4. Click **Details**
-5. Click **DNS** tab
-6. Click **+** under DNS Servers
-7. Add: `1.1.1.1` and `1.0.0.1`
-8. Note: Safari uses system DNS settings
-
 ---
 
 ## Step 10: Test DNS Security Blocking
