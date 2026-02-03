@@ -107,8 +107,7 @@ The Children's Internet Protection Act (CIPA) was enacted by Congress in 2000 to
    - Click **+ Or**
    - **Selector:** Select `Content Categories`
    - **Operator:** Select `in`
-   - **Value:** Check these categories:
-     - ✅ CIPA Filter
+   - **Value:** ✅ CIPA Filter
 
 6. **Action section:**
 
