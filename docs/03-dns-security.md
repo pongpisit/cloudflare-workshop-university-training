@@ -250,34 +250,32 @@ If you need to allow specific domains:
    - Shows "Gambling" content category
    - Site that was accessible before is now blocked!
 
-### Test 2: Malware Domain Test
+### Test 2: Custom Domain Test (Recommended)
+
+**Important Note:** Test domains for malware, phishing, and C2 categories change dynamically and may produce false results. Additionally, your internet connection might have on-premise security that blocks these domains before they reach Cloudflare Gateway, leading to incorrect test outcomes.
+
+**We recommend creating a custom test:**
+
+1. Go back to **Step 6** in this guide
+2. Create a new DNS policy called `Block Specific Domain`
+3. Set the **Selector** to `Domain`
+4. Set the **Operator** to `is`
+5. Set the **Value** to `block.com`
+6. Set **Action** to `Block`
+7. Save the policy
+
+**Now test:**
 
 1. Open a new browser tab
-2. Try to visit: `http://malware.testing.google.test/testing/malware/`
+2. Try to visit: **https://www.block.com/**
 3. **Expected Result:**
    - **Cloudflare Gateway block page** appears
-   - Message explains why it was blocked
-   - Shows "Malware" security category
+   - Message explains the domain is blocked
+   - Shows your custom policy name
 
-### Test 3: Phishing Domain Test
+**✅ If the domain is blocked, your DNS security is working correctly!**
 
-1. Try to visit: `http://testsafebrowsing.appspot.com/s/phishing.html`
-2. **Expected Result:**
-   - Site is blocked by Cloudflare Gateway
-   - Block page shows "Phishing" category
-   - DNS query was blocked before reaching the site
-
-### Test 4: Command & Control Test
-
-1. Try to visit a known C2 domain (if you have one for testing)
-2. **Expected Result:**
-   - DNS query blocked
-   - Cloudflare Gateway block page
-   - Shows "Command and Control" category
-
-**✅ If domains are blocked, your DNS security is working correctly!**
-
-**Note:** DNS security blocks access to malicious **domains**, not file downloads. The blocking happens at the DNS resolution level before any connection is made.
+**Note:** DNS security blocks access at the DNS resolution level before any connection is made to the actual website.
 
 ---
 
