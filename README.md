@@ -6,7 +6,8 @@ Hands-on lab workshop: Deploy websites and configure DNS security with Cloudflar
 
 **Lab 1:** Create Cloudflare account and access Dashboard  
 **Lab 2:** Deploy a website to Cloudflare Pages  
-**Lab 3:** Configure DNS security to block malicious domains
+**Lab 3:** Configure DNS security to block malicious domains  
+**Lab 4:** Secure internal applications with Zero Trust Network Access (ZTNA)
 
 ## Workshop Modules
 
@@ -15,8 +16,9 @@ Hands-on lab workshop: Deploy websites and configure DNS security with Cloudflar
 | 1 | [Account Setup](./docs/01-account-setup.md) | 10 min |
 | 2 | [Deploy Website](./docs/02-pages-deployment.md) | 30 min |
 | 3 | [DNS Security](./docs/03-dns-security.md) | 45 min |
+| 4 | [Zero Trust Network Access (ZTNA)](./docs/04-ztna.md) | 45 min |
 
-**Total:** 1 hour 25 minutes
+**Total:** 2 hours 10 minutes
 
 ## Objectives
 
@@ -25,9 +27,11 @@ By the end of this workshop, you will:
 - ✅ Block access to malicious domains at DNS level
 - ✅ Prevent access to phishing and malware sites
 - ✅ Configure DNS over HTTPS (DoH) in your browser
-- ✅ Test DNS blocking with malicious domain tests
+- ✅ Test DNS blocking with custom domain policies
 - ✅ View and analyze DNS security logs
-- ✅ Protect all devices on your network without installing software
+- ✅ Secure internal applications with Zero Trust Network Access
+- ✅ Replace VPN with identity-based access control
+- ✅ Create Cloudflare Tunnel for secure remote access
 
 ## Requirements
 
@@ -40,8 +44,9 @@ By the end of this workshop, you will:
 1. Start with [Module 1: Account Setup](./docs/01-account-setup.md)
 2. Continue to [Module 2: Deploy Website](./docs/02-pages-deployment.md)
 3. Complete [Module 3: DNS Security](./docs/03-dns-security.md)
-4. Test DNS blocking with malicious domain tests
-5. Review logs to see blocked queries
+4. Finish with [Module 4: Zero Trust Network Access](./docs/04-ztna.md)
+5. Test DNS blocking and secure application access
+6. Review logs to see blocked queries and access events
 
 ## Resources
 
