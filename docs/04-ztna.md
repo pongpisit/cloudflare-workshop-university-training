@@ -58,7 +58,7 @@ sudo cloudflared service install <your-token>
 
 ---
 
-## Step 4: Configure Public Hostname
+## Step 4: Configure Public Hostname (requires domain onboarded)
 
 1. Go to **Public Hostname** tab
 2. Click **Add a public hostname**
