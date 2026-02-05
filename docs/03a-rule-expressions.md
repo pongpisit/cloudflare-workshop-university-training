@@ -54,7 +54,6 @@ Learn how to build DNS security policies using Traffic, Identity, and Device sig
 |----------|-------------|---------|
 | `AND` | All conditions must be true | Category is Malware AND User not in IT |
 | `OR` | Any condition can be true | Category is Malware OR Category is Phishing |
-| `NOT` | Invert condition | User NOT in Contractors |
 
 ---
 
